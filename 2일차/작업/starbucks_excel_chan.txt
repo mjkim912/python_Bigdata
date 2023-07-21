@@ -1,0 +1,57 @@
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from PIL import Image
+import time
+
+driver = webdriver.Chrome('chromedriver.exe')
+url = 'https://www.istarbucks.co.kr'
+driver.get(url)
+time.sleep(2)
+
+action = ActionChains(driver)
+
+first_level_menu = driver.find_element_by_css_selector('#gnb > div > nav > div > ul > li.gnb_nav03 > h2 > a')
+action.move_to_element(first_level_menu).perform()
+time.sleep(1)
+
+second_level_menu = driver.find_element_by_css_selector('#gnb > div > nav > div > ul > li.gnb_nav03 > div > div.gnb_sub > div > ul:nth-child(1) > li:nth-child(3) > a')
+second_level_menu.click()
+time.sleep(1)
+
+xpath = '//*[@id="container"]/div/form/fieldset/div/section/article[1]/article/article[2]/div[1]/div[2]/ul/li[1]/a'
+raw = driver.find_element_by_xpath(xpath).click()
+time.sleep(1)
+
+xpath = '//*[@id="mCSB_2_container"]/ul/li[1]/a'
+raw = driver.find_element_by_xpath(xpath).click()
+time.sleep(1)
+
+from bs4 import BeautifulSoup
+
+html = driver.page_source 
+soup = BeautifulSoup(html, 'html.parser') 
+
+shop_list = soup.find_all('li', 'quickResultLstCon')
+time.sleep(1)
+
+shop_info = []
+for i in range(0,566):
+    name = shop_list[i].strong.text
+    addr = shop_list[i].select('p')[0].text[:-9]
+    pnum = shop_list[i].select('p')[0].text[-9:]
+    slat = shop_list[i]['data-lat']
+    slong = shop_list[i]['data-long']
+    
+    data = [name, addr, pnum, slat, slong]
+    
+    shop_info.append(data)
+    
+shop_info
+
+time.sleep(1)
+
+import pandas as pd
+
+shop_info_df = pd.DataFrame(shop_info)
+shop_info_df.columns = ['shop_name', 'shop_addr', 'shop_pnum','shop_slat','shop_slong']
+shop_info_df.to_excel('Starbucks_store.xlsx', index=False)
