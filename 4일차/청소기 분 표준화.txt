@@ -1,0 +1,14 @@
+def convert_time_minute(time):
+    try:
+        if '시간' in time:
+            hour = time.split('시간')[0]
+            if '분' in time:
+                minute = time.split('시간')[-1].split('분')[0]
+            else:
+                minute = 0
+        else: 
+            hour = 0
+            minute = time.split('분')[0]
+        return int(hour)*60 + int(minute)
+    except:
+        return None     

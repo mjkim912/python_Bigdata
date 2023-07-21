@@ -1,0 +1,14 @@
+def get_suction(value):
+    try:
+        value = value.upper()
+        if "AW" in value or "W" in value:
+            result = value.replace("A", "").replace("W","")
+            result = int(result.replace(",",""))
+        elif "PA" in value:
+            result = value.replace("PA","")
+            result = int(result.replace(",",""))/100
+        else:
+            result = None
+        return result
+    except:
+        return None
