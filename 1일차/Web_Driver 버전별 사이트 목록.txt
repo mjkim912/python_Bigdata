@@ -1,0 +1,24 @@
+# Web Driver 버전별 사이트
+
+
+- 컴퓨터 운영체제와 웹 브라우저 종류에 따라 개별 설치
+- 브라우저의 버전, PC 환경 등의 변수가 많아 크롬(Chrome)에서의 실습 권장
+
+
+1. 크롬 웹 드라이버
+
+
+https://chromedriver.storage.googleapis.com/index.html? (수업사용)
+
+
+2. 엣지 웹 드라이버
+
+https://docs.microsoft.com/ko-kr/microsoft-edge/webdriver
+
+
+
+3. 파이어폭스 웹 드라이버
+
+https://github.com/mozilla/geckodriver/releases
+
+
